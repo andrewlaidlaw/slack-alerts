@@ -1,0 +1,190 @@
+[
+    {
+        "id": "c2f5fc14.35f568",
+        "type": "tab",
+        "label": "OCP Alert Receiver",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4dd991d1.cb62",
+        "type": "http proxy",
+        "z": "",
+        "name": "Southbank Proxy",
+        "url": "http://9.196.148.19:3128",
+        "noproxy": []
+    },
+    {
+        "id": "85501198.cd65b",
+        "type": "http in",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "url": "/ocpalerts",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "8fe3f491.8bec58",
+                "da4fef0.8dd209"
+            ]
+        ]
+    },
+    {
+        "id": "600f2254.ab70c4",
+        "type": "http response",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 190,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8fe3f491.8bec58",
+        "type": "template",
+        "z": "c2f5fc14.35f568",
+        "name": "ok",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "ok",
+        "output": "str",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "600f2254.ab70c4"
+            ]
+        ]
+    },
+    {
+        "id": "482cd34c.6041cc",
+        "type": "http request",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://hooks.slack.com/services/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",
+        "tls": "",
+        "persist": false,
+        "proxy": "4dd991d1.cb62",
+        "authType": "",
+        "x": 790,
+        "y": 220,
+        "wires": [
+            [
+                "fde85c39.ad37e"
+            ]
+        ]
+    },
+    {
+        "id": "fde85c39.ad37e",
+        "type": "debug",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1277fbc4.07ee8c",
+        "type": "change",
+        "z": "c2f5fc14.35f568",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "'Content-type: application/json'",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 220,
+        "wires": [
+            [
+                "482cd34c.6041cc"
+            ]
+        ]
+    },
+    {
+        "id": "efd93698.43c138",
+        "type": "change",
+        "z": "c2f5fc14.35f568",
+        "name": "Example Alert",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"receiver\":\"Critical\",\"status\":\"resolved\",\"alerts\":[{\"status\":\"resolved\",\"labels\":{\"alertname\":\"KubeAPIErrorBudgetBurn\",\"long\":\"6h\",\"prometheus\":\"openshift-monitoring/k8s\",\"severity\":\"critical\",\"short\":\"30m\"},\"annotations\":{\"description\":\"The API server is burning too much error budget.\",\"summary\":\"The API server is burning too much error budget.\"},\"startsAt\":\"2021-02-25T13:45:18.512Z\",\"endsAt\":\"2021-02-25T16:04:48.512Z\",\"generatorURL\":\"https://prometheus-k8s-openshift-monitoring.apps.sbank-sb161.systems.ocp/graph?g0.expr=sum%28apiserver_request%3Aburnrate6h%29+%3E+%286+%2A+0.01%29+and+sum%28apiserver_request%3Aburnrate30m%29+%3E+%286+%2A+0.01%29&g0.tab=1\",\"fingerprint\":\"888c9b5a3c5a1579\"}],\"groupLabels\":{},\"commonLabels\":{\"alertname\":\"KubeAPIErrorBudgetBurn\",\"long\":\"6h\",\"prometheus\":\"openshift-monitoring/k8s\",\"severity\":\"critical\",\"short\":\"30m\"},\"commonAnnotations\":{\"description\":\"The API server is burning too much error budget.\",\"summary\":\"The API server is burning too much error budget.\"},\"externalURL\":\"https://alertmanager-main-openshift-monitoring.apps.sbank-sb161.systems.ocp\",\"version\":\"4\",\"groupKey\":\"{}/{severity=\\\"critical\\\"}:{}\",\"truncatedAlerts\":0}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "da4fef0.8dd209"
+            ]
+        ]
+    },
+    {
+        "id": "b7529ac3.4e795",
+        "type": "inject",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "topic": "Test",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "efd93698.43c138"
+            ]
+        ]
+    },
+    {
+        "id": "da4fef0.8dd209",
+        "type": "function",
+        "z": "c2f5fc14.35f568",
+        "name": "Formatting",
+        "func": "msg.payload.text = \"[\" + msg.payload.status + \"] *\";\nmsg.payload.text += msg.payload.alerts[0].labels.severity + \": \" ;\nmsg.payload.text += msg.payload.alerts[0].labels.alertname + \"*\\n\";\nmsg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\nmsg.payload.text += msg.payload.externalURL + \">\";\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "1277fbc4.07ee8c"
+            ]
+        ]
+    }
+]
