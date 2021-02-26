@@ -1,7 +1,7 @@
 {
-  "name": "sales-manual-chatbot",
+  "name": "slack-alerts",
   "version": "1.0.1",
-  "description": "Node.js application for Node-RED based chatbot",
+  "description": "Node.js application for Node-RED based alerting system linked to Slack",
   "dependencies": {
     "node-red": "1.0.3",
     "node-red-node-watson": "0.8.1"
