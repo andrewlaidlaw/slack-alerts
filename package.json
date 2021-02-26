@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrewlaidlaw/node-red-sales-manual.git"
+    "url": "https://github.com/andrewlaidlaw/slack-alerts.git"
   },
   "author": "Andrew Laidlaw <andrew.laidlaw@uk.ibm.com>",
   "bugs": {
-    "url": "https://github.com/andrewlaidlaw/node-red-sales-manual/issues"
+    "url": "https://github.com/andrewlaidlaw/slack-alerts/issues"
   },
-  "homepage": "https://github.com/andrewlaidlaw/node-red-sales-manual"
+  "homepage": "https://github.com/andrewlaidlaw/slack-alerts"
 }

@@ -70,7 +70,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": false,
-        "url": "https://hooks.slack.com/services/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",
+        "url": "",
         "tls": "",
         "persist": false,
         "proxy": "4dd991d1.cb62",
@@ -93,8 +93,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 850,
-        "y": 340,
+        "x": 970,
+        "y": 220,
         "wires": []
     },
     {
@@ -109,6 +109,13 @@
                 "pt": "msg",
                 "to": "'Content-type: application/json'",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "slackurl",
+                "tot": "global"
             }
         ],
         "action": "",
@@ -186,5 +193,74 @@
                 "1277fbc4.07ee8c"
             ]
         ]
+    },
+    {
+        "id": "574c344.b21e34c",
+        "type": "inject",
+        "z": "c2f5fc14.35f568",
+        "name": "Initialisation",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 380,
+        "wires": [
+            [
+                "7b5fec6a.4c45b4"
+            ]
+        ]
+    },
+    {
+        "id": "7b5fec6a.4c45b4",
+        "type": "change",
+        "z": "c2f5fc14.35f568",
+        "name": "Set Slack Webhook URL",
+        "rules": [
+            {
+                "t": "set",
+                "p": "slackurl",
+                "pt": "global",
+                "to": "SLACK_URL",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "SLACK_URL",
+                "tot": "env"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "fe015179.032508"
+            ]
+        ]
+    },
+    {
+        "id": "fe015179.032508",
+        "type": "debug",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 550,
+        "y": 380,
+        "wires": []
     }
 ]
