@@ -1,0 +1,40 @@
+{
+    "receiver": "Critical",
+    "status": "resolved",
+    "alerts": [
+        {
+            "status": "resolved",
+            "labels": {
+                "alertname": "KubeAPIErrorBudgetBurn",
+                "long": "6h",
+                "prometheus": "openshift-monitoring/k8s",
+                "severity": "critical",
+                "short": "30m"
+            },
+            "annotations": {
+                "description": "The API server is burning too much error budget.",
+                "summary": "The API server is burning too much error budget."
+            },
+            "startsAt": "2021-02-25T13:45:18.512Z",
+            "endsAt": "2021-02-25T16:04:48.512Z",
+            "generatorURL": "https://prometheus-k8s-openshift-monitoring.apps.sbank-sb161.systems.ocp/graph?g0.expr=sum%28apiserver_request%3Aburnrate6h%29+%3E+%286+%2A+0.01%29+and+sum%28apiserver_request%3Aburnrate30m%29+%3E+%286+%2A+0.01%29&g0.tab=1",
+            "fingerprint": "888c9b5a3c5a1579"
+        }
+    ],
+    "groupLabels": {},
+    "commonLabels": {
+        "alertname": "KubeAPIErrorBudgetBurn",
+        "long": "6h",
+        "prometheus": "openshift-monitoring/k8s",
+        "severity": "critical",
+        "short": "30m"
+    },
+    "commonAnnotations": {
+        "description": "The API server is burning too much error budget.",
+        "summary": "The API server is burning too much error budget."
+    },
+    "externalURL": "https://alertmanager-main-openshift-monitoring.apps.sbank-sb161.systems.ocp",
+    "version": "4",
+    "groupKey": "{}/{severity=\"critical\"}:{}",
+    "truncatedAlerts": 0
+}

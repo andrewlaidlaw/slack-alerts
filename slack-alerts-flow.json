@@ -28,7 +28,8 @@
         "wires": [
             [
                 "8fe3f491.8bec58",
-                "da4fef0.8dd209"
+                "da4fef0.8dd209",
+                "5dae794d.83278"
             ]
         ]
     },
@@ -149,7 +150,7 @@
         "type": "function",
         "z": "c2f5fc14.35f568",
         "name": "Formatting",
-        "func": "msg.payload.text = \"[\" + msg.payload.status + \"] *\";\nmsg.payload.text += msg.payload.alerts[0].labels.severity + \": \" ;\nmsg.payload.text += msg.payload.alerts[0].labels.alertname + \"*\\n\";\nmsg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\nmsg.payload.text += msg.payload.externalURL + \">\";\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
+        "func": "msg.payload.text = \"[\" + msg.payload.status + \"] *\";\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\nmsg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nmsg.payload.text += msg.payload.externalURL + \">\";\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 450,
@@ -193,5 +194,19 @@
                 "482cd34c.6041cc"
             ]
         ]
+    },
+    {
+        "id": "5dae794d.83278",
+        "type": "debug",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 450,
+        "y": 140,
+        "wires": []
     }
 ]
