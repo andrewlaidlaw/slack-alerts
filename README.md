@@ -10,4 +10,5 @@ To run correctly, you will need to pass in the appropriate values as Environment
 
 ## Endpoints
 - `/ocpalerts` - The primary endpoint for all alerts to be passed to
+- `/alerts` - A summary of all alerts received (in json) since last deployment
 - `/` - The root endpoint gives access to the Node-Red environment to make changes to the application

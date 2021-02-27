@@ -28,8 +28,8 @@
         "wires": [
             [
                 "8fe3f491.8bec58",
-                "da4fef0.8dd209",
-                "5dae794d.83278"
+                "3ba5839.d81da7c",
+                "62a13fb5.80a1"
             ]
         ]
     },
@@ -76,8 +76,8 @@
         "persist": false,
         "proxy": "4dd991d1.cb62",
         "authType": "",
-        "x": 790,
-        "y": 220,
+        "x": 610,
+        "y": 260,
         "wires": [
             [
                 "fde85c39.ad37e"
@@ -94,8 +94,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 970,
-        "y": 220,
+        "x": 610,
+        "y": 300,
         "wires": []
     },
     {
@@ -118,10 +118,10 @@
         "to": "",
         "reg": false,
         "x": 300,
-        "y": 320,
+        "y": 300,
         "wires": [
             [
-                "da4fef0.8dd209"
+                "3ba5839.d81da7c"
             ]
         ]
     },
@@ -138,7 +138,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 320,
+        "y": 300,
         "wires": [
             [
                 "efd93698.43c138"
@@ -153,8 +153,8 @@
         "func": "msg.payload.text = \"[\" + msg.payload.status + \"] *\";\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\nmsg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nmsg.payload.text += msg.payload.externalURL + \">\";\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 450,
-        "y": 220,
+        "x": 590,
+        "y": 180,
         "wires": [
             [
                 "1277fbc4.07ee8c"
@@ -187,7 +187,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 620,
+        "x": 600,
         "y": 220,
         "wires": [
             [
@@ -196,7 +196,55 @@
         ]
     },
     {
-        "id": "5dae794d.83278",
+        "id": "3ba5839.d81da7c",
+        "type": "switch",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "property": "payload.commonLabels.alertname",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "KubeAPIErrorBudgetBurn",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 140,
+        "wires": [
+            [
+                "aa07eb6b.44caf"
+            ],
+            [
+                "da4fef0.8dd209",
+                "aa07eb6b.44caf"
+            ]
+        ]
+    },
+    {
+        "id": "aa07eb6b.44caf",
+        "type": "file",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "filename": "alerts.out",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 760,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "62a13fb5.80a1",
         "type": "debug",
         "z": "c2f5fc14.35f568",
         "name": "",
@@ -205,8 +253,54 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 450,
-        "y": 140,
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ce192678.5a7d5",
+        "type": "http in",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "url": "/alerts",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 400,
+        "wires": [
+            [
+                "90feb74f.7abff8"
+            ]
+        ]
+    },
+    {
+        "id": "90feb74f.7abff8",
+        "type": "file in",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "filename": "alerts.out",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 330,
+        "y": 400,
+        "wires": [
+            [
+                "8fa28600.4cb04"
+            ]
+        ]
+    },
+    {
+        "id": "8fa28600.4cb04",
+        "type": "http response",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 400,
         "wires": []
     }
 ]
