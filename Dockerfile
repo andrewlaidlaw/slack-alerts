@@ -13,6 +13,7 @@ WORKDIR /usr/src/node-red
 #USER node-red
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json /usr/src/node-red/
+COPY slack-alerts-flow.json /usr/src/node-red/
 RUN npm install
 # User configuration directory volume
 EXPOSE 8080
