@@ -77,7 +77,7 @@
         "proxy": "4dd991d1.cb62",
         "authType": "",
         "x": 610,
-        "y": 260,
+        "y": 300,
         "wires": [
             [
                 "fde85c39.ad37e"
@@ -95,7 +95,7 @@
         "tostatus": false,
         "complete": "false",
         "x": 610,
-        "y": 300,
+        "y": 340,
         "wires": []
     },
     {
@@ -150,11 +150,11 @@
         "type": "function",
         "z": "c2f5fc14.35f568",
         "name": "Formatting",
-        "func": "msg.payload.text = \"[\" + msg.payload.status + \"] *\";\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\nmsg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nmsg.payload.text += msg.payload.externalURL + \">\";\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
+        "func": "// Start with the status of the message\nmsg.payload.text = \"[\" + msg.payload.status + \"] *\";\n\n// Add the severity\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\n\n// Include the alert name\nif (msg.payload.commonLabels.alertname) {\n    msg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\n}\nelse if (msg.payload.alerts[0].labels.alertname) {\n    msg.payload.text += msg.payload.alerts[0].labels.alertname + \"*\\n\";\n}\n\n// Find the full description and append to the message\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nelse if (msg.payload.description) {\n    msg.payload.text += msg.payload.description + \"\\n<\";\n}\nelse if (msg.payload.message) {\n    msg.payload.text += msg.payload.message + \"\\n<\";\n}\n\n// Add the location that the message came from\nmsg.payload.text += msg.payload.externalURL + \">\";\n\n// Set header to JSON\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "x": 590,
-        "y": 180,
+        "y": 220,
         "wires": [
             [
                 "1277fbc4.07ee8c"
@@ -188,7 +188,7 @@
         "to": "",
         "reg": false,
         "x": 600,
-        "y": 220,
+        "y": 260,
         "wires": [
             [
                 "482cd34c.6041cc"
@@ -209,21 +209,29 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "etcdHighCommitDurations",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
+        "outputs": 3,
         "x": 550,
         "y": 140,
         "wires": [
             [
-                "aa07eb6b.44caf"
+                "d0aa3885.23ee28"
+            ],
+            [
+                "d0aa3885.23ee28"
             ],
             [
                 "da4fef0.8dd209",
-                "aa07eb6b.44caf"
+                "d0aa3885.23ee28"
             ]
         ]
     },
@@ -237,7 +245,7 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 760,
+        "x": 940,
         "y": 140,
         "wires": [
             []
@@ -299,8 +307,60 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 530,
+        "x": 490,
         "y": 400,
         "wires": []
+    },
+    {
+        "id": "67adae04.4740a",
+        "type": "file",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "filename": "alerts.out",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 300,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0aa3885.23ee28",
+        "type": "json",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "aa07eb6b.44caf"
+            ]
+        ]
+    },
+    {
+        "id": "c96e1dfd.65ea68",
+        "type": "inject",
+        "z": "c2f5fc14.35f568",
+        "name": "Reset Alerts log",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 520,
+        "wires": [
+            [
+                "67adae04.4740a"
+            ]
+        ]
     }
 ]
