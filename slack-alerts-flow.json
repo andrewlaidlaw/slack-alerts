@@ -76,8 +76,8 @@
         "persist": false,
         "proxy": "4dd991d1.cb62",
         "authType": "",
-        "x": 610,
-        "y": 300,
+        "x": 890,
+        "y": 440,
         "wires": [
             [
                 "fde85c39.ad37e"
@@ -94,8 +94,8 @@
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 610,
-        "y": 340,
+        "x": 890,
+        "y": 480,
         "wires": []
     },
     {
@@ -153,8 +153,8 @@
         "func": "// Start with the status of the message\nmsg.payload.text = \"[\" + msg.payload.status + \"] *\";\n\n// Add the severity\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\n\n// Include the alert name\nif (msg.payload.commonLabels.alertname) {\n    msg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\n}\nelse if (msg.payload.alerts[0].labels.alertname) {\n    msg.payload.text += msg.payload.alerts[0].labels.alertname + \"*\\n\";\n}\n\n// Find the full description and append to the message\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nelse if (msg.payload.description) {\n    msg.payload.text += msg.payload.description + \"\\n<\";\n}\nelse if (msg.payload.message) {\n    msg.payload.text += msg.payload.message + \"\\n<\";\n}\n\n// Add the location that the message came from\nmsg.payload.text += msg.payload.externalURL + \">\";\n\n// Set header to JSON\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 590,
-        "y": 220,
+        "x": 870,
+        "y": 360,
         "wires": [
             [
                 "1277fbc4.07ee8c"
@@ -187,8 +187,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 260,
+        "x": 880,
+        "y": 400,
         "wires": [
             [
                 "482cd34c.6041cc"
@@ -230,8 +230,7 @@
                 "d0aa3885.23ee28"
             ],
             [
-                "da4fef0.8dd209",
-                "d0aa3885.23ee28"
+                "c5be98c1.eba3b"
             ]
         ]
     },
@@ -245,8 +244,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 940,
-        "y": 140,
+        "x": 900,
+        "y": 180,
         "wires": [
             []
         ]
@@ -336,7 +335,7 @@
         "action": "str",
         "pretty": false,
         "x": 750,
-        "y": 140,
+        "y": 180,
         "wires": [
             [
                 "aa07eb6b.44caf"
@@ -360,6 +359,46 @@
         "wires": [
             [
                 "67adae04.4740a"
+            ]
+        ]
+    },
+    {
+        "id": "c5be98c1.eba3b",
+        "type": "switch",
+        "z": "c2f5fc14.35f568",
+        "name": "",
+        "property": "payload.alerts[0].labels.alertname",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "KubeAPIErrorBudgetBurn",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "etcdHighCommitDurations",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "d0aa3885.23ee28"
+            ],
+            [
+                "d0aa3885.23ee28"
+            ],
+            [
+                "da4fef0.8dd209",
+                "d0aa3885.23ee28"
             ]
         ]
     }
