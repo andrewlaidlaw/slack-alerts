@@ -1,0 +1,51 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+        "title":"Slack Alerts for OCP",
+        "version":"1.0"
+    },
+    "servers": [
+        {"url":"http://slack-alerts.09c496a1.nip.io/"}
+    ],
+    "paths": {
+        "/ocpalerts": {
+            "post": {
+                "description": "The primary endpoint for all alerts to be passed to.",
+                "parameters": [
+                    {
+                        "name": "critical",
+                        "in" : "query",
+                        "description": "criticality level of alert: error | warning | info",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of event: firing | resolved",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "commonLabels.alertname",
+                        "description" : "Short name of the event being triggered",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "commonAnnotations.description",
+                        "description": "Full description of the event being triggered"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Expected respones to a valid event"
+                    }
+                }
+            }
+        }
+    }
+}
