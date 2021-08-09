@@ -381,15 +381,23 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "SystemMemoryExceedsReservation",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 3,
+        "outputs": 4,
         "x": 550,
         "y": 220,
         "wires": [
+            [
+                "d0aa3885.23ee28"
+            ],
             [
                 "d0aa3885.23ee28"
             ],
