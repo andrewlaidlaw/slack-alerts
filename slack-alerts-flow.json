@@ -118,7 +118,7 @@
         "to": "",
         "reg": false,
         "x": 300,
-        "y": 300,
+        "y": 320,
         "wires": [
             [
                 "3ba5839.d81da7c"
@@ -138,7 +138,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 300,
+        "y": 320,
         "wires": [
             [
                 "efd93698.43c138"
@@ -273,8 +273,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 160,
-        "y": 400,
+        "x": 140,
+        "y": 420,
         "wires": [
             [
                 "90feb74f.7abff8"
@@ -291,8 +291,8 @@
         "chunk": false,
         "sendError": false,
         "encoding": "none",
-        "x": 330,
-        "y": 400,
+        "x": 310,
+        "y": 420,
         "wires": [
             [
                 "8fa28600.4cb04"
@@ -306,8 +306,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 490,
-        "y": 400,
+        "x": 470,
+        "y": 420,
         "wires": []
     },
     {
@@ -321,7 +321,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 300,
-        "y": 520,
+        "y": 560,
         "wires": [
             []
         ]
@@ -355,7 +355,7 @@
         "once": false,
         "onceDelay": 0.1,
         "x": 120,
-        "y": 520,
+        "y": 560,
         "wires": [
             [
                 "67adae04.4740a"
@@ -386,15 +386,23 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "etcdGRPCRequestsSlow",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 4,
+        "outputs": 5,
         "x": 550,
         "y": 220,
         "wires": [
+            [
+                "d0aa3885.23ee28"
+            ],
             [
                 "d0aa3885.23ee28"
             ],
@@ -417,8 +425,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 490,
-        "y": 440,
+        "x": 470,
+        "y": 460,
         "wires": []
     },
     {
@@ -430,8 +438,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 170,
-        "y": 440,
+        "x": 150,
+        "y": 460,
         "wires": [
             [
                 "1ad18f68.482969"
@@ -449,12 +457,72 @@
         "syntax": "mustache",
         "template": "ok",
         "output": "str",
-        "x": 340,
-        "y": 440,
+        "x": 320,
+        "y": 460,
         "wires": [
             [
                 "adae2a3e.aeb1b"
             ]
         ]
+    },
+    {
+        "id": "8860d668.286388",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Incoming webhook",
+        "info": "",
+        "x": 190,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a210fb77.0a0d",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Filter out (\"mute\") non-essential warnings",
+        "info": "",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7a4cabe4.b1b6d4",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Pass to Slack endpoint",
+        "info": "",
+        "x": 840,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "439a4870.a3bba8",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Admin endpoints",
+        "info": "",
+        "x": 160,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "fd255944.d647f8",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Reset alert log file",
+        "info": "",
+        "x": 110,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "cd725846.41158",
+        "type": "comment",
+        "z": "c2f5fc14.35f568",
+        "name": "Send a test alert",
+        "info": "",
+        "x": 100,
+        "y": 280,
+        "wires": []
     }
 ]
