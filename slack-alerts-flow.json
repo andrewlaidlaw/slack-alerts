@@ -320,7 +320,7 @@
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 300,
+        "x": 340,
         "y": 560,
         "wires": [
             []
@@ -570,6 +570,26 @@
         "wires": [
             [
                 "98988b2e.edfc9"
+            ]
+        ]
+    },
+    {
+        "id": "b70574f7.9d3d4",
+        "type": "inject",
+        "z": "3d86ea73.0682c6",
+        "name": "Startup create log file",
+        "topic": "",
+        "payload": "[",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "7ef3f140.342f38"
             ]
         ]
     }
