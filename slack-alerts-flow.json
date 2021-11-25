@@ -1,6 +1,6 @@
 [
     {
-        "id": "c2f5fc14.35f568",
+        "id": "3d86ea73.0682c6",
         "type": "tab",
         "label": "OCP Alert Receiver",
         "disabled": false,
@@ -15,9 +15,9 @@
         "noproxy": []
     },
     {
-        "id": "85501198.cd65b",
+        "id": "2da55b2d.58e0ac",
         "type": "http in",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "url": "/ocpalerts",
         "method": "post",
@@ -27,16 +27,16 @@
         "y": 140,
         "wires": [
             [
-                "8fe3f491.8bec58",
-                "3ba5839.d81da7c",
-                "62a13fb5.80a1"
+                "970330a5.1ed4b",
+                "6af851af.31d6a",
+                "7b5e6f3.9315d1"
             ]
         ]
     },
     {
-        "id": "600f2254.ab70c4",
+        "id": "57c0c99a.e7bc18",
         "type": "http response",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "statusCode": "",
         "headers": {},
@@ -45,9 +45,9 @@
         "wires": []
     },
     {
-        "id": "8fe3f491.8bec58",
+        "id": "970330a5.1ed4b",
         "type": "template",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "ok",
         "field": "payload",
         "fieldType": "msg",
@@ -59,14 +59,14 @@
         "y": 180,
         "wires": [
             [
-                "600f2254.ab70c4"
+                "57c0c99a.e7bc18"
             ]
         ]
     },
     {
-        "id": "482cd34c.6041cc",
+        "id": "659bf488.4c05b4",
         "type": "http request",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "method": "POST",
         "ret": "txt",
@@ -76,32 +76,32 @@
         "persist": false,
         "proxy": "4dd991d1.cb62",
         "authType": "",
-        "x": 830,
-        "y": 440,
+        "x": 970,
+        "y": 380,
         "wires": [
             [
-                "fde85c39.ad37e"
+                "a1315e8f.b4635"
             ]
         ]
     },
     {
-        "id": "fde85c39.ad37e",
+        "id": "a1315e8f.b4635",
         "type": "debug",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
-        "x": 830,
-        "y": 480,
+        "x": 970,
+        "y": 420,
         "wires": []
     },
     {
-        "id": "efd93698.43c138",
+        "id": "78e82162.39f4d8",
         "type": "change",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Example Alert",
         "rules": [
             {
@@ -121,14 +121,14 @@
         "y": 320,
         "wires": [
             [
-                "3ba5839.d81da7c"
+                "6af851af.31d6a"
             ]
         ]
     },
     {
-        "id": "b7529ac3.4e795",
+        "id": "224dbeb0.bf98c2",
         "type": "inject",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "topic": "Test",
         "payload": "",
@@ -141,30 +141,30 @@
         "y": 320,
         "wires": [
             [
-                "efd93698.43c138"
+                "78e82162.39f4d8"
             ]
         ]
     },
     {
-        "id": "da4fef0.8dd209",
+        "id": "782f5e16.83f98",
         "type": "function",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Formatting",
         "func": "// Start with the status of the message\nmsg.payload.text = \"[\" + msg.payload.status + \"] *\";\n\n// Add the severity\nmsg.payload.text += msg.payload.commonLabels.severity + \": \" ;\n\n// Include the alert name\nif (msg.payload.commonLabels.alertname) {\n    msg.payload.text += msg.payload.commonLabels.alertname + \"*\\n\";\n}\nelse if (msg.payload.alerts[0].labels.alertname) {\n    msg.payload.text += msg.payload.alerts[0].labels.alertname + \"*\\n\";\n}\n\n// Find the full description and append to the message\nif (msg.payload.commonAnnotations.description) {\n    msg.payload.text += msg.payload.commonAnnotations.description + \"\\n<\";\n}\nelse if (msg.payload.commonAnnotations.message) {\n    msg.payload.text += msg.payload.commonAnnotations.message + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.description) {\n    msg.payload.text += msg.payload.alerts[0].annotations.description + \"\\n<\";\n}\nelse if (msg.payload.alerts[0].annotations.message) {\n    msg.payload.text += msg.payload.alerts[0].annotations.message + \"\\n<\";\n}\nelse if (msg.payload.description) {\n    msg.payload.text += msg.payload.description + \"\\n<\";\n}\nelse if (msg.payload.message) {\n    msg.payload.text += msg.payload.message + \"\\n<\";\n}\n\n// Add the location that the message came from\nmsg.payload.text += msg.payload.externalURL + \">\";\n\n// Set header to JSON\nmsg.headers = 'Content-type: application/json';\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 810,
-        "y": 360,
+        "x": 950,
+        "y": 300,
         "wires": [
             [
-                "1277fbc4.07ee8c"
+                "e9d0b82.4be6248"
             ]
         ]
     },
     {
-        "id": "1277fbc4.07ee8c",
+        "id": "e9d0b82.4be6248",
         "type": "change",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Headers",
         "rules": [
             {
@@ -187,18 +187,18 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 820,
-        "y": 400,
+        "x": 960,
+        "y": 340,
         "wires": [
             [
-                "482cd34c.6041cc"
+                "659bf488.4c05b4"
             ]
         ]
     },
     {
-        "id": "3ba5839.d81da7c",
+        "id": "6af851af.31d6a",
         "type": "switch",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "property": "payload.commonLabels.alertname",
         "propertyType": "msg",
@@ -224,36 +224,36 @@
         "y": 140,
         "wires": [
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "1d1c7f7.fc2c181"
+                "babec9a8.3ec67"
             ]
         ]
     },
     {
-        "id": "aa07eb6b.44caf",
+        "id": "98c508f6.5283d",
         "type": "file",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "filename": "alerts.out",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 940,
+        "x": 1100,
         "y": 180,
         "wires": [
             []
         ]
     },
     {
-        "id": "62a13fb5.80a1",
+        "id": "7b5e6f3.9315d1",
         "type": "debug",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -265,9 +265,9 @@
         "wires": []
     },
     {
-        "id": "ce192678.5a7d5",
+        "id": "f2298414.259948",
         "type": "http in",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "url": "/alerts",
         "method": "get",
@@ -277,46 +277,46 @@
         "y": 420,
         "wires": [
             [
-                "90feb74f.7abff8"
+                "6fb2fb9c.53ab7c"
             ]
         ]
     },
     {
-        "id": "90feb74f.7abff8",
+        "id": "6fb2fb9c.53ab7c",
         "type": "file in",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "filename": "alerts.out",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
-        "x": 310,
+        "x": 280,
         "y": 420,
         "wires": [
             [
-                "8fa28600.4cb04"
+                "f85fdae2.38d8d8"
             ]
         ]
     },
     {
-        "id": "8fa28600.4cb04",
+        "id": "98988b2e.edfc9",
         "type": "http response",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 470,
+        "x": 690,
         "y": 420,
         "wires": []
     },
     {
-        "id": "67adae04.4740a",
+        "id": "7ef3f140.342f38",
         "type": "file",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "filename": "alerts.out",
-        "appendNewline": true,
+        "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "none",
@@ -327,9 +327,9 @@
         ]
     },
     {
-        "id": "d0aa3885.23ee28",
+        "id": "79b931d0.15bae",
         "type": "json",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "property": "payload",
         "action": "str",
@@ -338,17 +338,17 @@
         "y": 180,
         "wires": [
             [
-                "aa07eb6b.44caf"
+                "5492cb58.865d84"
             ]
         ]
     },
     {
-        "id": "c96e1dfd.65ea68",
+        "id": "1cd85450.504714",
         "type": "inject",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Reset Alerts log",
         "topic": "",
-        "payload": "",
+        "payload": "[",
         "payloadType": "str",
         "repeat": "",
         "crontab": "",
@@ -358,14 +358,14 @@
         "y": 560,
         "wires": [
             [
-                "67adae04.4740a"
+                "7ef3f140.342f38"
             ]
         ]
     },
     {
-        "id": "1d1c7f7.fc2c181",
+        "id": "babec9a8.3ec67",
         "type": "switch",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "property": "payload.alerts[0].labels.alertname",
         "propertyType": "msg",
@@ -401,27 +401,27 @@
         "y": 220,
         "wires": [
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "d0aa3885.23ee28"
+                "79b931d0.15bae"
             ],
             [
-                "d0aa3885.23ee28",
-                "da4fef0.8dd209"
+                "79b931d0.15bae",
+                "782f5e16.83f98"
             ]
         ]
     },
     {
-        "id": "adae2a3e.aeb1b",
+        "id": "f7c4e1a4.a64e9",
         "type": "http response",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "statusCode": "",
         "headers": {},
@@ -430,9 +430,9 @@
         "wires": []
     },
     {
-        "id": "f916dc92.4fb32",
+        "id": "96c25fc.beddea",
         "type": "http in",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "url": "/healthz",
         "method": "get",
@@ -442,14 +442,14 @@
         "y": 460,
         "wires": [
             [
-                "1ad18f68.482969"
+                "40a57283.269fac"
             ]
         ]
     },
     {
-        "id": "1ad18f68.482969",
+        "id": "40a57283.269fac",
         "type": "template",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "",
         "field": "payload",
         "fieldType": "msg",
@@ -461,14 +461,14 @@
         "y": 460,
         "wires": [
             [
-                "adae2a3e.aeb1b"
+                "f7c4e1a4.a64e9"
             ]
         ]
     },
     {
-        "id": "8860d668.286388",
+        "id": "3e0ed09f.3d3db8",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Incoming webhook",
         "info": "",
         "x": 190,
@@ -476,9 +476,9 @@
         "wires": []
     },
     {
-        "id": "a210fb77.0a0d",
+        "id": "3b8cfc34.ef544c",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Filter out (\"mute\") non-essential warnings",
         "info": "",
         "x": 660,
@@ -486,19 +486,19 @@
         "wires": []
     },
     {
-        "id": "7a4cabe4.b1b6d4",
+        "id": "ae82473b.69a6f8",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Pass to Slack endpoint",
         "info": "",
-        "x": 840,
-        "y": 320,
+        "x": 980,
+        "y": 260,
         "wires": []
     },
     {
-        "id": "439a4870.a3bba8",
+        "id": "184ca03e.afd8",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Admin endpoints",
         "info": "",
         "x": 160,
@@ -506,9 +506,9 @@
         "wires": []
     },
     {
-        "id": "fd255944.d647f8",
+        "id": "c9a07e5f.7d331",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Reset alert log file",
         "info": "",
         "x": 110,
@@ -516,13 +516,61 @@
         "wires": []
     },
     {
-        "id": "cd725846.41158",
+        "id": "11e87b24.5dab25",
         "type": "comment",
-        "z": "c2f5fc14.35f568",
+        "z": "3d86ea73.0682c6",
         "name": "Send a test alert",
         "info": "",
         "x": 100,
         "y": 280,
         "wires": []
+    },
+    {
+        "id": "f85fdae2.38d8d8",
+        "type": "function",
+        "z": "3d86ea73.0682c6",
+        "name": "Add closing ]",
+        "func": "if (msg.payload.length > 4) {\n    msg.payload = msg.payload.substring(0, msg.payload.length-2)\n}\nmsg.payload = msg.payload  + \"]\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 420,
+        "wires": [
+            [
+                "e8efcb0f.700df"
+            ]
+        ]
+    },
+    {
+        "id": "5492cb58.865d84",
+        "type": "function",
+        "z": "3d86ea73.0682c6",
+        "name": "Add comma seperator",
+        "func": "msg.payload = msg.payload + \",\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 920,
+        "y": 180,
+        "wires": [
+            [
+                "98c508f6.5283d"
+            ]
+        ]
+    },
+    {
+        "id": "e8efcb0f.700df",
+        "type": "json",
+        "z": "3d86ea73.0682c6",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "98988b2e.edfc9"
+            ]
+        ]
     }
 ]
