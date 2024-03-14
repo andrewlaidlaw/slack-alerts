@@ -10,8 +10,8 @@
         "id": "4dd991d1.cb62",
         "type": "http proxy",
         "z": "",
-        "name": "Southbank Proxy",
-        "url": "http://9.196.148.19:3128",
+        "name": "Hursley Proxy",
+        "url": "http://9.196.118.22:3128",
         "noproxy": []
     },
     {
@@ -28,8 +28,9 @@
         "wires": [
             [
                 "970330a5.1ed4b",
-                "6af851af.31d6a",
-                "7b5e6f3.9315d1"
+                "7b5e6f3.9315d1",
+                "782f5e16.83f98",
+                "79b931d0.15bae"
             ]
         ]
     },
@@ -120,9 +121,7 @@
         "x": 300,
         "y": 320,
         "wires": [
-            [
-                "6af851af.31d6a"
-            ]
+            []
         ]
     },
     {
@@ -192,45 +191,6 @@
         "wires": [
             [
                 "659bf488.4c05b4"
-            ]
-        ]
-    },
-    {
-        "id": "6af851af.31d6a",
-        "type": "switch",
-        "z": "3d86ea73.0682c6",
-        "name": "",
-        "property": "payload.commonLabels.alertname",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "KubeAPIErrorBudgetBurn",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "etcdHighCommitDurations",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 550,
-        "y": 140,
-        "wires": [
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "babec9a8.3ec67"
             ]
         ]
     },
@@ -359,62 +319,6 @@
         "wires": [
             [
                 "7ef3f140.342f38"
-            ]
-        ]
-    },
-    {
-        "id": "babec9a8.3ec67",
-        "type": "switch",
-        "z": "3d86ea73.0682c6",
-        "name": "",
-        "property": "payload.alerts[0].labels.alertname",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "KubeAPIErrorBudgetBurn",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "etcdHighCommitDurations",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "SystemMemoryExceedsReservation",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "etcdGRPCRequestsSlow",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 5,
-        "x": 550,
-        "y": 220,
-        "wires": [
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "79b931d0.15bae"
-            ],
-            [
-                "79b931d0.15bae",
-                "782f5e16.83f98"
             ]
         ]
     },
